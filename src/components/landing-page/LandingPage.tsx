@@ -1,69 +1,76 @@
-import PrimaryButton from '../buttons/PrimaryButton'
-import img1 from '../../assets/images/hero-img1.png'
-import img2 from '../../assets/images/hero-image2.png'
-import img3 from '../../assets/images/hero-image3.png'
-import sliderIndicator from '../../assets/images/Frame 1000002758.svg'
+import { useState, useEffect } from 'react';
+import PrimaryButton from '../buttons/PrimaryButton';
 
+const slides = [
+    {
+        heading: "SINC Partners is a service incubation company",
+        text: "Connecting experts in product development and growth marketing willing to offer their services to amazing startups in exchange for minute equity (usually 0.5% to 2%).",
+        bgClass: "bg-hero1",
+    },
+    {
+        heading: "Come with an idea, leave with a company.",
+        text: "You, alongside seasoned service partners and investors, expedite the growth and market entry of your startup.",
+        bgClass: "bg-hero2",
+    },
+    {
+        heading: "We are big on these 3 things;",
+        text: "✓ Service Incubation & Ecosystem Advocacy\n✓ Building SAAS & Marketing Tech Platform\n✓ Institutional Innovations",
+        bgClass: "bg-hero3",
+        hasOverlay: true
+    }
+];
 
 export default function LandingPage() {
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        const slideInterval = setInterval(() => {
+            setCurrentSlide(prevSlide => (prevSlide + 1) % slides.length);
+        }, 5000);
+
+        return () => clearInterval(slideInterval);
+    }, []);
+
     return (
-
-        //Implement Slider here
-        <div className='p-4 lg:px-32'>
-
-            {/* <Carousel responsive={responsive}> */}
-            {/* 1st slide */}
-            <div className='flex'>
-                <div className='flex flex-col gap-4'>
-                    <div>
-                        <h2 className='text-heading text-xl'>SINC Partners is a service incubation company</h2>
-                        <p className='text-text leading-6'>
-                            Connecting experts in product development and growth marketing willing to offer their services to amazing startups in exchange for minute equity (usually 0.5% to 2%).
-                        </p>
+        <div className='p-4 lg:p-0'>
+            {slides.map((slide, index) => (
+                <div
+                    key={index}
+                    className={`grid lg:grid-cols-2 transition-opacity duration-5000 lg:relative ${index === currentSlide ? 'opacity-100' : 'opacity-0'} ${index === currentSlide ? 'block' : 'hidden'}`}
+                >
+                    <div className='flex flex-col gap-4 lg:p-32 lg:gap-6'>
+                        <div className='lg:text-2xl'>
+                            <h2 className='text-heading lg:text-4xl lg:font-medium lg:leading-[3.5rem]'>{slide.heading}</h2>
+                            <p className='text-text leading-6 lg:font-light lg:leading-10'>
+                                {slide.text}
+                            </p>
+                        </div>
+                        <PrimaryButton title='SINC with us' bg='darkCard' text='white' />
                     </div>
-                    <PrimaryButton title='SINC with us' bg='darkCard' text='white' />
-                </div>
 
-                <img src={img1} alt='blank' className='hidden lg:block'></img>
-            </div>
-
-
-            {/* 2nd slide */}
-            <div className='hidden'>
-                <div className='flex flex-col gap-4'>
-                    <div>
-                        <h2 className='text-heading text-xl'>We are big on these 3 things;</h2>
-                        <ul>
-                            <li className='text-text'>✓ Service Incubation & Ecosystem Advocacy</li>
-                            <li className='text-text'>✓ Building SAAS & Marketing Tech Platform</li>
-                            <li className='text-text'>✓ Institutional Innovations</li>
-                        </ul>
+                    <div className={`hidden lg:block ${slide.bgClass} w-full h-[65vh] bg-cover bg-no-repeat overflow-hidden`}>
                     </div>
-                    <PrimaryButton title='SINC with us' bg='darkCard' text='white' />
+
+                    {slide.hasOverlay && <div className='absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 w-max hidden lg:grid gap-4'>
+                        <div className='bg-customGradient p-2 px-7 w-full text-white rounded-full flex flex-col items-center gap-1'>
+                            <p className='text-xl font-semibold uppercase'>sip 1.0</p>
+                            <p className='text-sm font-light'>2024 cohort</p>
+                        </div>
+
+                        <div className='bg-customGradient p-2 px-7 w-full text-white rounded-full flex flex-col items-center gap-1'>
+                            <p className='text-xl font-semibold'>40 +</p>
+                            <p className='text-sm font-light'>to be included</p>
+                        </div>
+
+
+                        <div className='bg-customGradient p-2 px-7 w-full text-white rounded-full flex flex-col items-center gap-1'>
+                            <p className='text-xl font-semibold'>$1M+</p>
+                            <p className='text-sm font-light'>to be invested</p>
+                        </div>
+
+                    </div>}
                 </div>
-
-                <img src={img2} alt='blank' className='hidden'></img>
-            </div>
-
-
-            {/* 3rd slide */}
-            <div className='hidden'>
-                <div className='flex flex-col gap-4'>
-                    <div>
-                        <h2 className='text-heading text-xl'>Come with an idea, leave with a company.</h2>
-                        <p className='text-text leading-6'>
-                            You, alongside seasoned service partners and investors, expedite the growth and market entry of your startup.
-                        </p>
-                    </div>
-                    <PrimaryButton title='SINC with us' bg='darkCard' text='white' />
-                </div>
-
-                <img src={img3} alt='blank' className='hidden'></img>
-            </div>
-            {/* </Carousel> */}
-
-            {/* Temporary slider Indicator */}
-            <img src={sliderIndicator} alt='slider' className='my-5 mx-auto' />
+            ))}
         </div>
-    )
+    );
 }

@@ -7,7 +7,7 @@ export default function Navbar() {
         <nav className='px-4 py-4 bg-primary lg:px-32'>
             <div className='flex lg:justify-between'>
                 <div className='flex lg:gap-6 justify-between w-full lg:w-min'>
-                    <img src={logo} alt='sinc logo' />
+                    <img src={logo} alt='sinc logo' className='w-20 lg:w-full' />
                     <img src={hamburger} alt='hamburger menu' className='lg:hidden' />
                     <div className='hidden lg:flex text-heading capitalize gap-3 items-center font-medium'>
                         <span>about</span>
