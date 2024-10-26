@@ -48,7 +48,7 @@ export default function LandingPage() {
                         <PrimaryButton title='SINC with us' bg='darkCard' text='white' />
                     </div>
 
-                    <div className={`hidden lg:block ${slide.bgClass} w-full h-[65vh] bg-cover bg-no-repeat overflow-hidden`}>
+                    <div className={`hidden lg:block ${slide.bgClass} w-full max-h-[50rem] h-[65vh] bg-cover bg-no-repeat overflow-hidden`}>
                     </div>
 
                     {slide.hasOverlay && <div className='absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 w-max hidden lg:grid gap-4'>

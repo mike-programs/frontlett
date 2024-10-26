@@ -6,7 +6,7 @@ import Footer from "./components/footer/Footer";
 
 export default function App() {
   return (
-    <div className='text-sm text-text lg:text-base'>
+    <div className='text-sm text-text lg:text-base max-w-[1800px] mx-auto'>
       <Navbar />
       <LandingPage />
       <AboutUs />
